@@ -45,28 +45,20 @@ export const featuresData = [
 export const eventsData = [
   {
     id: 1,
-    title: "Tech Bootcamp 2025",
-    date: "March 15-17, 2025",
-    category: "Workshop",
-    image: "/tech-bootcamp.jpg",
-    description: "Intensive training in web development, AI, and cloud technologies.",
+    title: "ATiT Week",
+    date: "January, 2026",
+    category: "Event",
+    image: "/assets/atit-week-banner.png",
+    description: "ATiT Week is a week-long event where students can showcase their projects and ideas.",
   },
   {
     id: 2,
-    title: "Innovation Hackathon",
-    date: "April 5-7, 2025",
-    category: "Competition",
-    image: "/hackathon-event.png",
-    description: "48-hour hackathon with mentorship from industry experts.",
-  },
-  {
-    id: 3,
-    title: "AI & Machine Learning Summit",
-    date: "May 10, 2025",
-    category: "Seminar",
-    image: "/ai-summit.jpg",
-    description: "Deep dive into AI advancements with leading researchers.",
-  },
+    title: "Extru 2026",
+    date: "March, 2026",
+    category: "Exhibition",
+    image: "/assets/extru-2026.png",
+    description: "Extru 2026 is the flagship exhibition of Faculty of Technology, Rajarata University.",
+  }
 ]
 
 export const projectsData = [
@@ -129,30 +121,29 @@ export const teamData = [
 
 export const whoWeAreData = {
   title: "Who We Are",
-  subtitle: "Faculty of Applied Sciences • Department of Computing & Information Systems",
   description:
-    "ATIT is a student-led innovation hub where researchers, designers, and engineers from the Faculty of Applied Sciences collaborate to build human-centered technology. We experiment boldly, prototype rapidly, and deliver solutions that impact the university and beyond.",
+    "ATIT is a student-led innovation hub where researchers, designers, and engineers from the Faculty of Technology collaborate to build human-centered technology. We experiment boldly, prototype rapidly, and deliver solutions that impact the university and beyond.",
   highlights: [
     "Interdisciplinary labs for robotics, AI, and immersive media",
     "Mentorship from alumni and industry partners",
     "Hands-on projects that solve university-scale challenges",
   ],
   faculty: "Faculty of Technology",
-  department: "Department of Computing & Information Systems",
-  badgeText: "since 2015",
-  carouselEyebrow: "Exploring tomorrow's ideas",
-  carouselTitle: "Immersive Studios",
+  department: "Department of Information and Communication Technology",
+  badgeText: "since 2017",
+  carouselEyebrow: "",
+  carouselTitle: "",
   missionLabel: "mission",
   missionStatement: "Build compassionate technologies that move the Rajarata community forward.",
   carouselImages: [
-    "/diverse-group-conversation.png",
-    "/diverse-group-outdoors.png",
-    "/diverse-group-meeting.png",
-    "/person-silhouette-city.png",
+    "/assets/atit-extru-team.jpg",
+    "/assets/atit-workshop-1.jpg",
+    "/assets/atit-workshop-2.jpg",
+    "/assets/atit-workshop-3.jpg",
   ],
   stats: [
-    { label: "Active Members", value: "120+" },
-    { label: "Flagship Projects", value: "35" },
-    { label: "Years of Impact", value: "10" },
+    { label: "Active Members", value: "300+" },
+    { label: "Student Projects", value: "35" },
+    { label: "Years of Impact", value: "5" },
   ],
 }

@@ -1,8 +1,11 @@
+
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState, useRef } from "react"
+
+import Carousel, { CarouselItem } from "./Carousel"
 
 interface WhoWeAreStat {
     label: string
@@ -11,7 +14,6 @@ interface WhoWeAreStat {
 
 interface WhoWeAreData {
     title: string
-    subtitle: string
     description: string
     highlights: string[]
     faculty: string
@@ -32,6 +34,17 @@ interface WhoWeAreSectionProps {
 export function WhoWeAreSection({ data }: WhoWeAreSectionProps) {
     const images = useMemo(() => data.carouselImages.filter(Boolean), [data.carouselImages])
     const [activeIndex, setActiveIndex] = useState(0)
+    const containerRef = useRef<HTMLElement>(null)
+
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    })
+
+    const y1 = useTransform(scrollYProgress, [0, 1], [0, 200])
+    const y2 = useTransform(scrollYProgress, [0, 1], [0, -150])
+    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+
     const badgeText = data.badgeText ?? "since 2015"
     const carouselEyebrow = data.carouselEyebrow ?? "Exploring tomorrow's ideas"
     const carouselTitle = data.carouselTitle ?? "Immersive Studios"
@@ -39,23 +52,28 @@ export function WhoWeAreSection({ data }: WhoWeAreSectionProps) {
     const missionStatement = data.missionStatement ??
         "Build compassionate technologies that move the Rajarata community forward."
 
-    useEffect(() => {
-        if (images.length <= 1) return
-
-        const timer = setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % images.length)
-        }, 4500)
-
-        return () => clearInterval(timer)
-    }, [images])
+    const carouselItems: CarouselItem[] = useMemo(() => images.map((img, i) => ({
+        id: i,
+        title: carouselTitle,
+        description: carouselEyebrow,
+        image: img
+    })), [images, carouselTitle, carouselEyebrow])
 
     if (!data) return null
 
     return (
-        <section className="relative overflow-hidden py-24 px-4 sm:px-6 lg:px-8 bg-black">
+        <section ref={containerRef} className="relative overflow-hidden py-24 px-4 sm:px-6 lg:px-8 bg-black">
             <div className="absolute inset-0 bg-linear-to-b from-white/5 via-transparent to-black pointer-events-none" />
-            <div className="absolute -top-10 right-0 w-72 h-72 bg-secondary/20 blur-3xl rounded-full" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/20 blur-3xl rounded-full" />
+
+            {/* Parallax Background Elements */}
+            <motion.div
+                style={{ y: y1, opacity }}
+                className="absolute -top-20 right-0 w-[500px] h-[500px] bg-secondary/20 blur-[100px] rounded-full pointer-events-none"
+            />
+            <motion.div
+                style={{ y: y2, opacity }}
+                className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/20 blur-[100px] rounded-full pointer-events-none"
+            />
 
             <div className="relative max-w-6xl mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
                 <motion.div
@@ -73,7 +91,7 @@ export function WhoWeAreSection({ data }: WhoWeAreSectionProps) {
                     <div>
                         <p className="text-sm font-semibold text-primary/80">{data.faculty}</p>
                         <h2 className="text-4xl sm:text-5xl font-bold text-white mt-2 mb-3">{data.title}</h2>
-                        <p className="text-lg text-gray-300">{data.subtitle}</p>
+                        
                     </div>
 
                     <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
@@ -125,45 +143,21 @@ export function WhoWeAreSection({ data }: WhoWeAreSectionProps) {
                     viewport={{ once: true }}
                     className="relative"
                 >
-                    <div className="relative aspect-4/3 rounded-4xl overflow-hidden border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-                        {images.length === 0 ? (
-                            <div className="w-full h-full flex items-center justify-center text-gray-500">No images provided</div>
-                        ) : (
-                            images.map((image, index) => (
-                                <motion.img
-                                    key={image}
-                                    src={image}
-                                    alt={`ATIT culture ${index + 1}`}
-                                    className="absolute inset-0 h-full w-full object-cover"
-                                    initial={{ opacity: 0, scale: 1.05 }}
-                                    animate={{ opacity: index === activeIndex ? 1 : 0, scale: index === activeIndex ? 1 : 1.02 }}
-                                    transition={{ duration: 0.9 }}
-                                    style={{ zIndex: index === activeIndex ? 2 : 1 }}
-                                />
-                            ))
-                        )}
+                    <div className="relative h-[500px] w-full flex items-center justify-center">
+                        <Carousel
+                            items={carouselItems}
+                            baseWidth={500}
+                            height={350}
+                            autoplay={true}
+                            autoplayDelay={4000}
+                            loop={true}
+                            pauseOnHover={true}
+                        />
 
-                        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
-
-                        <div className="absolute top-6 right-6 px-4 py-3 rounded-2xl backdrop-blur-xl bg-black/40 border border-white/10 text-right">
+                        {/* Overlays - Positioned relative to the container now */}
+                        <div className="absolute top-0 right-0 px-4 py-3 rounded-2xl backdrop-blur-xl bg-black/40 border border-white/10 text-right pointer-events-none z-10">
                             <p className="text-xs uppercase tracking-[0.4em] text-gray-400">Department</p>
                             <p className="text-base font-semibold text-white">{data.department}</p>
-                        </div>
-
-                        <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-                            <div>
-                                <p className="text-sm text-gray-300">{carouselEyebrow}</p>
-                                <p className="text-xl font-semibold text-white">{carouselTitle}</p>
-                            </div>
-                            <div className="flex gap-2">
-                                {images.map((_, index) => (
-                                    <span
-                                        key={`dot-${index}`}
-                                        className={`h-2 w-2 rounded-full transition-all ${index === activeIndex ? "bg-white scale-110" : "bg-white/40"
-                                            }`}
-                                    />
-                                ))}
-                            </div>
                         </div>
                     </div>
 

@@ -1,6 +1,5 @@
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/hero-section"
-import { FeaturesSection } from "@/components/features-section"
 import { EventsPreview } from "@/components/events-preview"
 import { ProjectsPreview } from "@/components/projects-preview"
 import { TeamSection } from "@/components/team-section"
@@ -13,7 +12,6 @@ export default function Home() {
       <Navigation logo={navData.logo} />
       <HeroSection title={heroData.title} subtitle={heroData.subtitle} cta={heroData.cta} logo={heroData.logo} />
       <WhoWeAreSection data={whoWeAreData} />
-      <FeaturesSection features={featuresData} />
       <EventsPreview events={eventsData} />
       <ProjectsPreview projects={projectsData} />
       <TeamSection members={teamData} />

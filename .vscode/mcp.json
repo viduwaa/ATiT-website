@@ -1,0 +1,11 @@
+{
+  "servers": {
+    "shadcn": {
+  "command": "/bin/bash",
+  "args": [
+    "-c",
+    "export PATH=\"/home/viduwa/.nvm/versions/node/v24.11.1/bin:$PATH\" && npx shadcn@latest mcp"
+  ]
+}
+  }
+}

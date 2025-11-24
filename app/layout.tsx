@@ -41,19 +41,18 @@ const exo = localFont({
 export const metadata: Metadata = {
   title: "ATIT Rajarata - Advanced Tech Innovation Club",
   description: "Empowering innovation at Rajarata University with cutting-edge technology and creative solutions.",
-  generator: "v0.app",
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
+        url: "/assets/atit-logo-rounded.png",
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/icon-dark-32x32.png",
+        url: "/assets/atit-logo-rounded.png",
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/icon.svg",
+        url: "/assets/atit-logo-rounded.png",
         type: "image/svg+xml",
       },
     ],
